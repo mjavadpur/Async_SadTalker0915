@@ -22,13 +22,13 @@ async def initialize_in_parallel(class_constructor, params):
 async def createInstance(sadtalker_paths, device):
 
     params = (sadtalker_paths, device)
-    preprocess_model_t = asyncio.create_task(initialize_in_parallel(CropAndExtract, *params)) 
-    audio_to_coeff_t = asyncio.create_task(initialize_in_parallel(Audio2Coeff, *params)) 
-    animate_from_coeff_t = asyncio.create_task(initialize_in_parallel(AnimateFromCoeff, *params)) 
+    preprocess_model_t = asyncio.create_task(initialize_in_parallel(CropAndExtract, params)) 
+    audio_to_coeff_t = asyncio.create_task(initialize_in_parallel(Audio2Coeff, params)) 
+    animate_from_coeff_t = asyncio.create_task(initialize_in_parallel(AnimateFromCoeff, params)) 
 
-    preprocess_model = await preprocess_model_t
-    audio_to_coeff = await audio_to_coeff_t
-    animate_from_coeff = await animate_from_coeff_t
+    await preprocess_model_t
+    await audio_to_coeff_t
+    await animate_from_coeff_t
     
     preprocess_model = preprocess_model_t.result()
     audio_to_coeff = audio_to_coeff_t.result()
