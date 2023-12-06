@@ -1,3 +1,4 @@
+import asyncio
 import os
 import cv2
 import time
@@ -42,9 +43,24 @@ class KeypointExtractor():
         except:
             root_path = 'gfpgan/weights'
 
-        self.detector = init_alignment_model('awing_fan',device=device, model_rootpath=root_path)   
-        self.det_net = init_detection_model('retinaface_resnet50', half=False,device=device, model_rootpath=root_path)
 
+        asyncio.run(self.main(root_path, device))
+
+    async def main(self, root_path, device):
+
+        init1_t = asyncio.create_task(self.init1(root_path, device)) 
+        init2_t = asyncio.create_task(self.init2(root_path, device)) 
+
+        await init1_t
+        await init2_t
+        
+    async def init1(self, root_path, device):
+        self.detector = init_alignment_model('awing_fan',device=device, model_rootpath=root_path)   
+        
+    async def init2(self, root_path, device):
+        self.det_net = init_detection_model('retinaface_resnet50', half=False,device=device, model_rootpath=root_path)
+        
+        
     def extract_keypoint(self, images, name=None, info=True):
         if isinstance(images, list):
             keypoints = []

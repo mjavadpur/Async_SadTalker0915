@@ -15,7 +15,6 @@ from time import perf_counter
 from scipy.io import loadmat, savemat
 from src.utils.croper import Preprocesser
 
-import asyncio
 
 import warnings
 
@@ -49,26 +48,12 @@ def split_coeff(coeffs):
 class CropAndExtract():
     def __init__(self, sadtalker_path, device):
 
-        asyncio.run(self.createInstance(sadtalker_path, device))
-        
-               
-        self.device = device
-        
-    async def createInstance(self, sadtalker_path, device):
-
-        init1_t = asyncio.create_task(self.init1(sadtalker_path, device)) 
-        init2_t = asyncio.create_task(self.init2(sadtalker_path, device)) 
-        init3_t = asyncio.create_task(self.init3(sadtalker_path, device)) 
-
-        await init1_t
-        await init2_t
-        await init3_t
-        
-    
-    async def init1(self, sadtalker_path, device):
+        start = perf_counter()
         self.propress = Preprocesser(device)
+        end = perf_counter()
+        print(f"CropAndExtract Preprocesser: {end - start}")
         
-    async def init2(self, sadtalker_path, device):
+        start = perf_counter()
         self.net_recon = networks.define_net_recon(net_recon='resnet50', use_last_fc=False, init_path='').to(device)
         
         if sadtalker_path['use_safetensor']:
@@ -79,10 +64,17 @@ class CropAndExtract():
             self.net_recon.load_state_dict(checkpoint['net_recon'])
 
         self.net_recon.eval()
-    async def init3(self, sadtalker_path, device):
+        
+        end = perf_counter()
+        print(f"CropAndExtract self.net_recon: {end - start}")
+        
+        start = perf_counter()
         self.lm3d_std = load_lm3d(sadtalker_path['dir_of_BFM_fitting'])
         
-        
+        end = perf_counter()
+        print(f"CropAndExtract self.lm3d_std: {end - start}")
+        self.device = device
+    
     def generate(self, input_path, save_dir, crop_or_resize='crop', source_image_flag=False, pic_size=256):
 
         pic_name = os.path.splitext(os.path.split(input_path)[-1])[0]  
