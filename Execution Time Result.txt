@@ -1,0 +1,42 @@
+﻿# selected audio from exmaple/driven_audio
+img = 'examples/source_image/{}.png'.format(default_head_name.value)
+print(img)
+!python3.8 inferenceMP.py --driven_audio ./examples/driven_audio/RD_Radio31_000.wav \
+           --source_image {img} \
+           --result_dir ./results --still --preprocess full --enhancer gfpgan
+
+-------------------------------------------------------------------------
+
+examples/source_image/full3.png
+using safetensor as default
+init_path Execution Time: 0.00021529197692871094 seconds
+[W CudaIPCTypes.cpp:92] Producer process tried to deallocate over 1000 memory blocks referred by consumer processes. Deallocation might be significantly slowed down. We assume it will never going to be the case, but if it is, please file but to https://github.com/pytorch/pytorch
+3 Class Execution Time in parallel: 43.91937494277954 seconds
+3DMM Extraction for source image
+landmark Det:: 100% 1/1 [00:00<00:00, 15.75it/s]
+3DMM Extraction In Video:: 100% 1/1 [00:00<00:00, 22.44it/s]
+CropAndExtract preprocess_model.generate Execution Time: 7.937903881072998 seconds
+CropAndExtract ref_eyeblink preprocess_model.generate Execution Time: 2.384185791015625e-07 seconds
+CropAndExtract ref_pose preprocess_model.generate Execution Time: 2.384185791015625e-07 seconds
+mel:: 100% 200/200 [00:00<00:00, 39767.74it/s]
+get_data Execution Time: 1.1909420490264893 seconds
+audio2exp:: 100% 20/20 [00:00<00:00, 304.25it/s]
+audio_to_coeff.generate Execution Time: 0.1773509979248047 seconds
+gen_composed_video Execution Time: 1.6689300537109375e-06 seconds
+get_facerender_data Execution Time: 0.03876686096191406 seconds
+Face Renderer:: 100% 100/100 [00:54<00:00,  1.84it/s]
+IMAGEIO FFMPEG_WRITER WARNING: input image is not divisible by macro_block_size=16, resizing from (256, 259) to (256, 272) to ensure video compatibility with most codecs and players. To prevent resizing, make your input image divisible by the macro_block_size or set the macro_block_size to 1 (risking incompatibility).
+The generated video is named ./results/2023_12_04_08.26.31/full3##RD_Radio31_000.mp4
+OpenCV: FFMPEG: tag 0x5634504d/'MP4V' is not supported with codec id 12 and format 'mp4 / MP4 (MPEG-4 Part 14)'
+OpenCV: FFMPEG: fallback to use tag 0x7634706d/'mp4v'
+seamlessClone:: 100% 200/200 [00:40<00:00,  4.89it/s]
+The generated video is named ./results/2023_12_04_08.26.31/full3##RD_Radio31_000_full.mp4
+face enhancer....
+Face Enhancer::  29% 58/200 [00:30<01:14,  1.90it/s]
+face enhancer....
+Face Enhancer:: 100% 200/200 [01:42<00:00,  1.95it/s]
+The generated video is named ./results/2023_12_04_08.26.31/full3##RD_Radio31_000_enhanced.mp4
+animate_from_coeff.generate Execution Time: 255.09271430969238 seconds
+shutil.move Execution Time: 0.00010371208190917969 seconds
+The generated video is named: ./results/2023_12_04_08.26.31.mp4
+Inference Execution Time: 308.3592486381531 seconds
