@@ -10,6 +10,8 @@ from src.face3d.util.preprocess import align_img
 from src.face3d.util.load_mats import load_lm3d
 from src.face3d.models import networks
 
+from time import perf_counter
+
 from scipy.io import loadmat, savemat
 from src.utils.croper import Preprocesser
 
@@ -46,7 +48,12 @@ def split_coeff(coeffs):
 class CropAndExtract():
     def __init__(self, sadtalker_path, device):
 
+        start = perf_counter()
         self.propress = Preprocesser(device)
+        end = perf_counter()
+        print(f"CropAndExtract Preprocesser: {end - start}")
+        
+        start = perf_counter()
         self.net_recon = networks.define_net_recon(net_recon='resnet50', use_last_fc=False, init_path='').to(device)
         
         if sadtalker_path['use_safetensor']:
@@ -57,7 +64,15 @@ class CropAndExtract():
             self.net_recon.load_state_dict(checkpoint['net_recon'])
 
         self.net_recon.eval()
+        
+        end = perf_counter()
+        print(f"CropAndExtract self.net_recon: {end - start}")
+        
+        start = perf_counter()
         self.lm3d_std = load_lm3d(sadtalker_path['dir_of_BFM_fitting'])
+        
+        end = perf_counter()
+        print(f"CropAndExtract self.lm3d_std: {end - start}")
         self.device = device
     
     def generate(self, input_path, save_dir, crop_or_resize='crop', source_image_flag=False, pic_size=256):
