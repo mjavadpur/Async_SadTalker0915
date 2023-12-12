@@ -46,7 +46,7 @@ def split_coeff(coeffs):
 
 
 class CropAndExtract():
-    async def __init__(self, sadtalker_path, device):
+    def __init__(self, sadtalker_path, device):
 
         start = perf_counter()
         self.propress = Preprocesser(device)

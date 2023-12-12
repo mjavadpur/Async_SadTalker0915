@@ -1,0 +1,35 @@
+examples/source_image/full3.png
+using safetensor as default
+init_path Execution Time: 0.00021314620971679688 seconds
+CropAndExtract Preprocesser: 3.011817117999726
+CropAndExtract self.net_recon: 0.6098946479996812
+CropAndExtract self.lm3d_std: 0.0007899309998720128
+CropAndExtract Execution Time: 3.627681016921997 seconds
+Audio2Coeff Execution Time: 0.45247483253479004 seconds
+AnimateFromCoeff Execution Time: 3.3018531799316406 seconds
+3DMM Extraction for source image
+landmark Det:: 100% 1/1 [00:00<00:00, 11.97it/s]
+3DMM Extraction In Video:: 100% 1/1 [00:00<00:00, 39.40it/s]
+CropAndExtract preprocess_model.generate Execution Time: 2.2792611122131348 seconds
+CropAndExtract ref_eyeblink preprocess_model.generate Execution Time: 4.76837158203125e-07 seconds
+CropAndExtract ref_pose preprocess_model.generate Execution Time: 2.384185791015625e-07 seconds
+mel:: 100% 200/200 [00:00<00:00, 39301.95it/s]
+get_data Execution Time: 0.6518433094024658 seconds
+audio2exp:: 100% 20/20 [00:00<00:00, 147.42it/s]
+audio_to_coeff.generate Execution Time: 0.22195029258728027 seconds
+gen_composed_video Execution Time: 9.5367431640625e-06 seconds
+get_facerender_data Execution Time: 0.03574657440185547 seconds
+Face Renderer:: 100% 100/100 [00:55<00:00,  1.79it/s]
+IMAGEIO FFMPEG_WRITER WARNING: input image is not divisible by macro_block_size=16, resizing from (256, 259) to (256, 272) to ensure video compatibility with most codecs and players. To prevent resizing, make your input image divisible by the macro_block_size or set the macro_block_size to 1 (risking incompatibility).
+The generated video is named ./results/2023_12_12_08.34.08/full3##RD_Radio31_000.mp4
+OpenCV: FFMPEG: tag 0x5634504d/'MP4V' is not supported with codec id 12 and format 'mp4 / MP4 (MPEG-4 Part 14)'
+OpenCV: FFMPEG: fallback to use tag 0x7634706d/'mp4v'
+seamlessClone:: 100% 200/200 [00:42<00:00,  4.70it/s]
+The generated video is named ./results/2023_12_12_08.34.08/full3##RD_Radio31_000_full.mp4
+face enhancer....
+Face Enhancer:: 100% 200/200 [01:49<00:00,  1.82it/s]
+The generated video is named ./results/2023_12_12_08.34.08/full3##RD_Radio31_000_enhanced.mp4
+animate_from_coeff.generate Execution Time: 216.2710886001587 seconds
+shutil.move Execution Time: 6.29425048828125e-05 seconds
+The generated video is named: ./results/2023_12_12_08.34.08.mp4
+Inference Execution Time: 226.84612345695496 seconds

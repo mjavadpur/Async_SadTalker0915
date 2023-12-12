@@ -13,6 +13,14 @@ from src.generate_facerender_batch import get_facerender_data
 from src.utils.init_path import init_path
 import asyncio
 
+
+async def initialize_in_parallel(class_constructor, params):
+    obj = class_constructor(*params)
+    return obj
+
+
+    
+
 async def main(args):
     #torch.backends.cudnn.enabled = False
 
@@ -39,9 +47,10 @@ async def main(args):
     init_path_endTime = time.time()    
     execution_time = init_path_endTime - init_path_startTime
     print(f"init_path Execution Time: {execution_time} seconds")
-    preprocess_model, audio_to_coeff, animate_from_coeff = await asyncio.gather(CropAndExtract(sadtalker_paths, device),
-                                                                                    Audio2Coeff(sadtalker_paths,  device),
-                                                                                    AnimateFromCoeff(sadtalker_paths, device))
+    params = (sadtalker_paths, device)
+    preprocess_model, audio_to_coeff, animate_from_coeff = await asyncio.gather(initialize_in_parallel(CropAndExtract,params),
+                                                                                initialize_in_parallel(Audio2Coeff,params),
+                                                                                initialize_in_parallel(AnimateFromCoeff,params))
     
     #init model
     # CropAndExtract_startTime = time.time()
