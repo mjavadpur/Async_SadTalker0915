@@ -46,7 +46,7 @@ def split_coeff(coeffs):
 
 
 class CropAndExtract():
-    def __init__(self, sadtalker_path, device):
+    async def __init__(self, sadtalker_path, device):
 
         start = perf_counter()
         self.propress = Preprocesser(device)
@@ -75,7 +75,7 @@ class CropAndExtract():
         print(f"CropAndExtract self.lm3d_std: {end - start}")
         self.device = device
     
-    def generate(self, input_path, save_dir, crop_or_resize='crop', source_image_flag=False, pic_size=256):
+    async def generate(self, input_path, save_dir, crop_or_resize='crop', source_image_flag=False, pic_size=256):
 
         pic_name = os.path.splitext(os.path.split(input_path)[-1])[0]  
 

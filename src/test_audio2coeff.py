@@ -24,7 +24,7 @@ def load_cpk(checkpoint_path, model=None, optimizer=None, device="cpu"):
 
 class Audio2Coeff():
 
-    def __init__(self, sadtalker_path, device):
+    async def __init__(self, sadtalker_path, device):
         #load config
         fcfg_pose = open(sadtalker_path['audio2pose_yaml_path'])
         cfg_pose = CN.load_cfg(fcfg_pose)
@@ -71,7 +71,7 @@ class Audio2Coeff():
  
         self.device = device
 
-    def generate(self, batch, coeff_save_dir, pose_style, ref_pose_coeff_path=None):
+    async def generate(self, batch, coeff_save_dir, pose_style, ref_pose_coeff_path=None):
 
         with torch.no_grad():
             #test

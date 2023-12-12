@@ -32,7 +32,7 @@ except:
 
 class AnimateFromCoeff():
 
-    def __init__(self, sadtalker_path, device):
+    async def __init__(self, sadtalker_path, device):
 
         with open(sadtalker_path['facerender_yaml']) as f:
             config = yaml.safe_load(f)
@@ -154,7 +154,7 @@ class AnimateFromCoeff():
 
         return checkpoint['epoch']
 
-    def generate(self, x, video_save_dir, pic_path, crop_info, enhancer=None, background_enhancer=None, preprocess='crop', img_size=256):
+    async def generate(self, x, video_save_dir, pic_path, crop_info, enhancer=None, background_enhancer=None, preprocess='crop', img_size=256):
 
         source_image=x['source_image'].type(torch.FloatTensor)
         source_semantics=x['source_semantics'].type(torch.FloatTensor)

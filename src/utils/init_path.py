@@ -1,7 +1,7 @@
 import os
 import glob
 
-def init_path(checkpoint_dir, config_dir, size=512, old_version=False, preprocess='crop'):
+async def init_path(checkpoint_dir, config_dir, size=512, old_version=False, preprocess='crop'):
 
     if old_version:
         #### load all the checkpoint of `pth`

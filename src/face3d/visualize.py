@@ -9,7 +9,7 @@ import scipy.io as scio
 from tqdm import tqdm 
 
 # draft
-def gen_composed_video(args, device, first_frame_coeff, coeff_path, audio_path, save_path, exp_dim=64):
+async def gen_composed_video(args, device, first_frame_coeff, coeff_path, audio_path, save_path, exp_dim=64):
     
     coeff_first = scio.loadmat(first_frame_coeff)['full_3dmm']
 
